@@ -1,0 +1,18 @@
+FROM mysql:5.7
+
+#RUN apt-get update; apt-get -y upgrade; apt-get install -y curl
+
+ENV MYSQL_ALLOW_EMPTY_PASSWORD true
+
+VOLUME /var/lib/mysql
+
+COPY mysql/config/ /etc/mysql/
+
+COPY mysql/base.sql /base.sql
+COPY mysql/start.sh /start.sh
+RUN chmod 755 /start.sh
+
+RUN rm -rf /var/lib/mysql/*; mysqld --initialize-insecure --user=mysql; chown -R mysql. /var/lib/mysql
+
+EXPOSE 3306
+CMD /start.sh
