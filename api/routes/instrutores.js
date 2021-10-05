@@ -29,7 +29,7 @@ router.get('/:id', (req, res) => {
     "data":{}
   }
 
-  conn.query("SELECT * FROM instrutores WHERE id = ?", [req.params.id], (err, resp) => {
+  conn.query("SELECT * FROM instrutores WHERE id = " + req.params.id, (err, resp) => {
     if(err){
       resultado.status = "erro";
       resultado.data = err;
